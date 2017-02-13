@@ -1,0 +1,34 @@
+#:kivy 1.8.0
+#:import KivyLexer kivy.extras.highlight.KivyLexer
+#:import Factory kivy.factory.Factory
+
+
+FloatLayout:
+    orientation: 'vertical'
+
+    canvas.before:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            size: self.size
+            source: 'data/background.png'
+
+    Label:
+        text: "Twitter search tag input (write string, press enter)"
+        size_hint: (0.45,0.0)
+
+    TextInput:
+        id: "searchfilter"
+        text: ""
+        multiline: False
+        size_hint_y: 0.06
+        size_hint_x: 0.3
+        on_text_validate: app.on_enter(self.text)
+
+
+    ScreenManager:
+        id: sm
+        on_current_screen:
+            spnr.text = args[1].name
+            idx = app.screen_names.index(args[1].name)
+            if idx > -1: app.hierarchy.append(idx)
